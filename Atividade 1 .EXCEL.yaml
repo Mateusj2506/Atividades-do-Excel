@@ -1,0 +1,19 @@
+name: 'Atividade 1 '
+description: ''
+host: EXCEL
+api_set: {}
+script:
+  content: "const prepare = document.getElementById(\"Preparar\") as HTMLButtonElement;\r\nprepare.addEventListener(\"click\", async () => {\r\n  await Excel.run(async (context) => {\r\n    const sheet = context.workbook.worksheets.getActiveWorksheet();\r\n    sheet.getRange().clear();\r\n    sheet.name = \"Segunda Atividade\";\r\n\r\n    const range = sheet.getRange(\"A1:C6\");\r\n    range.values = [\r\n      [\"Numero \", \"Quadrado \", \"Raiz \"],\r\n      [\"\", \"\", \"\"],\r\n      [\"\", \"\", \"\"],\r\n      [\"\", \"\", \"\"],\r\n      [\"\", \"\", \"\"],\r\n      [\"\", \"\", \"\"]\r\n    ];\r\n\r\n    range.format.borders.getItem(\"InsideHorizontal\").color = \"Black\";\r\n    range.format.borders.getItem(\"InsideVertical\").color = \"Black\";\r\n    range.format.borders.getItem(\"EdgeTop\").color = \"Black\";\r\n    range.format.borders.getItem(\"EdgeLeft\").color = \"Black\";\r\n    range.format.borders.getItem(\"EdgeRight\").color = \"Black\";\r\n    range.format.borders.getItem(\"EdgeBottom\").color = \"Black\";\r\n\r\n    sheet.getRange(\"A1:C6\").format.font.bold = true;\r\n    sheet.getRange(\"A1:C6\").format.fill.color = \"#ADD8E6\";\r\n    sheet.getRange(\"A1:C1\").format.horizontalAlignment = \"left\";\r\n    sheet.getRange(\"C1\").format.horizontalAlignment = \"left\";\r\n\r\n    const effectuation = \"#.##0\";\r\n    sheet.getRange(\"A2:A6\").numberFormat = [\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation]\r\n    ];\r\n    sheet.getRange(\"B2:B6\").numberFormat = [\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation]\r\n    ];\r\n    sheet.getRange(\"C2:C6\").numberFormat = [\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation],\r\n      [effectuation]\r\n    ];\r\n  });\r\n});\r\n\r\nconst execute = document.getElementById(\"executar\") as HTMLButtonElement;\r\nexecute.addEventListener(\"click\", async () => {\r\n  await Excel.run(async (context) => {\r\n    const sheet = context.workbook.worksheets.getActiveWorksheet();\r\n\r\n    let extension = sheet.getRange(\"A2:A6\");\r\n    extension.load(\"values\");\r\n    await context.sync();\r\n\r\n    let numeroPrimario = parseFloat(extension.values[0][0]);\r\n\r\n    let number = sheet.getRange(\"B2:B6\");\r\n    Number(\"Number * 2\");\r\n    await context.sync();\r\n\r\n    let match,\r\n      sqrt = sheet.getRange(\"C2:C6\");\r\n    match.sqrt(\"values\");\r\n    await context.sync();\r\n\r\n    await context.sync();\r\n  });\r\n});\r\n"
+  language: typescript
+template:
+  content: "<p>Execute a tabela:</p>\n<button id=\"Preparar\">Preparar</button><br>\n<p>Click no botao executar para ver os resultados <p>\n\t\t<button id=\"executar\">executar</button>"
+  language: html
+style:
+  content: ''
+  language: css
+libraries: |
+  https://appsforoffice.microsoft.com/lib/1/hosted/office.js
+  @types/office-js
+
+  core-js@2.4.1/client/core.min.js
+  @types/core-js
